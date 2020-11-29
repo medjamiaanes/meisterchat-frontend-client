@@ -1,0 +1,95 @@
+$background: #f4f6f9;
+$dark: #2b2d3a;
+$red: #ea4b4b;
+$grey: #9ba3ad;
+$brown: #b18d65;
+
+.login_page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  .left_box {
+    flex: 1;
+    background-color: red;
+    .people_chat_img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .right_box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 30px;
+    .header {
+      position: absolute;
+      top: 25px;
+      text-align: center;
+      .app_logo {
+        width: 350px;
+      }
+    }
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .form_title {
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        font-weight: bold;
+      }
+      .login_form {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        .phone_input {
+          outline-width: 0;
+          border: 1px solid $grey;
+          height: 50px;
+          width: 280px;
+          padding: 5px 10px;
+          text-align: center;
+          border-radius: 15px;
+          transition: 0.4s;
+          &:focus {
+            border: 1px solid $red;
+            box-shadow: 0px 0px 6px -1px $red;
+          }
+        }
+        .submit_button {
+          width: 280px;
+          background-color: $red;
+          color: #fff;
+          outline: none;
+          border: none;
+          height: 50px;
+          border-radius: 15px;
+          margin-top: 15px;
+          font-size: 1.1rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          cursor: pointer;
+          opacity: 0.9;
+          transition: 0.4s;
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .footer {
+      position: absolute;
+      bottom: 25px;
+      text-align: center;
+      .footer-title {
+        color: $grey;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
