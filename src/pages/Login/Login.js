@@ -8,15 +8,15 @@ import 'react-phone-input-2/lib/style.css'
 import './login.scss'
 import { useDispatch } from 'react-redux'
 import { login } from '../../features/userSlice'
-
+import * as Storage from '../../helpers/Storage'
 const Login = () => {
   const dispatch = useDispatch()
   const [form, setForm] = React.useState('phone_form')
   const [phone, setPhone] = React.useState('')
 
-  const submitLogin = (user) => {
-    localStorage.setItem('user', JSON.stringify(user))
-    dispatch(login(user))
+  const submitLogin = (auth) => {
+    Storage.setObject('meisterchat_auth', auth)
+    dispatch(login(auth))
   }
   const renderForm = () => {
     switch (form) {
