@@ -3,18 +3,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login } from './features/userSlice'
 import Login from './pages/Login'
 import Main from './pages/Main'
+import * as Storage from './helpers/Storage'
+import { setAuthorization } from './helpers/Api'
 import 'rsuite/dist/styles/rsuite-default.css'
 import './App.scss'
 function App() {
   const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
+  const auth = useSelector((state) => state.user)
 
   React.useEffect(() => {
-    const storageUser = localStorage.getItem('user')
-    if (storageUser) dispatch(login(JSON.parse(storageUser)))
+    const storageAuth = Storage.getObject('meisterchat_auth')
+    if (storageAuth) {
+      setAuthorization(storageAuth.accessToken)
+      dispatch(login(storageAuth))
+    }
   }, [])
 
-  return <div className="App">{user ? <Main /> : <Login />}</div>
+  return <div className="App">{auth ? <Main /> : <Login />}</div>
 }
 
 export default App

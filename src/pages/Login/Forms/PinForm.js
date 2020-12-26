@@ -1,7 +1,8 @@
 import React from 'react'
 import PinInput from 'react-pin-input'
-import { Button, Icon, Loader } from 'rsuite'
+import { Button, Icon, Loader, Alert } from 'rsuite'
 import moment from 'moment'
+import axios from '../../../helpers/Api'
 const PinForm = ({ setForm, phone, submitLogin }) => {
   const [loading, setLoading] = React.useState(false)
   const [counter, setCounter] = React.useState('00:30')
@@ -23,23 +24,50 @@ const PinForm = ({ setForm, phone, submitLogin }) => {
   React.useEffect(() => {
     startCountDown()
   }, [])
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setForm('infos_form')
+    try {
+      setLoading(true)
+      const { data } = await axios.post('/backend/api/auth/check/code', {
+        phone: `+${phone}`,
+        code: pin,
+      })
+      setLoading(false)
+      Alert.success(data.message, 5000)
+      if (data.user)
+        return submitLogin({ user: data.user, accessToken: data.accessToken })
+      return setForm('infos_form')
+    } catch (error) {
+      setLoading(false)
+      if (error.response && error.response.status !== 404)
+        return Alert.error(error.response.data.message)
+      Alert.error('Something went wrong')
+    }
   }
-  const resendCode = (e) => {
+  const resendCode = async (e) => {
     e.preventDefault()
-    setLoading(true)
-    setTimeout(() => {
+
+    try {
+      setLoading(true)
+      const { data } = await axios.post('/backend/api/auth/send/code', {
+        phone: `+${phone}`,
+      })
       setLoading(false)
       setCounter('00:30')
       startCountDown()
-    }, 3000)
+      Alert.success(data.message, 5000)
+    } catch (error) {
+      setLoading(false)
+      if (error.response && error.response.status !== 404)
+        return Alert.error(error.response.data.message)
+      Alert.error('Something went wrong')
+    }
   }
   return (
     <>
       <p className="message">
-        Please confirm your phone number by entering the pin code we sent you
+        Please confirm your phone number by entering the 6 digits code we've
+        sent you
       </p>
       <form className="login_form" onSubmit={handleSubmit}>
         <PinInput
@@ -62,7 +90,12 @@ const PinForm = ({ setForm, phone, submitLogin }) => {
           </button>
           <p>- {counter}</p>
         </div>
-        <Button type="submit" className="submit_button">
+        <Button
+          type="submit"
+          className="submit_button"
+          loading={loading}
+          disabled={loading}
+        >
           submit <Icon icon="check" className="button_icon" />
         </Button>
       </form>

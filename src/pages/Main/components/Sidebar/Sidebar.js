@@ -1,8 +1,8 @@
 import React from 'react'
 import DefaultAvatar from '../../../../images/chandler.jpeg'
 import './sidebar.scss'
-import { NavLink, useRouteMatch } from 'react-router-dom'
-import { Icon } from 'rsuite'
+import { NavLink, Link } from 'react-router-dom'
+import { Modal, Button } from 'rsuite'
 import {
   Sms,
   Call,
@@ -12,6 +12,11 @@ import {
   ExitToApp,
 } from '@material-ui/icons'
 const Sidebar = () => {
+  const [modal, setModal] = React.useState(false)
+  const submitLogout = () => {
+    localStorage.removeItem('meisterchat_auth')
+    window.location.replace('/')
+  }
   return (
     <div className="sidebar">
       <div className="sidebar_header">
@@ -37,10 +42,28 @@ const Sidebar = () => {
         <NavLink to="" className="sidebar_link">
           <Settings className="link_icon" />
         </NavLink>
-        <NavLink to="" className="sidebar_link">
+        <Link to="" className="sidebar_link" onClick={() => setModal(true)}>
           <ExitToApp className="link_icon" />
-        </NavLink>
+        </Link>
       </div>
+
+      <Modal keyboard={false} show={modal} onHide={() => setModal(false)}>
+        <Modal.Header className="modal_header">
+          <ExitToApp className="modal_icon" />{' '}
+          <h5 className="modal_title">Logging out</h5>
+        </Modal.Header>
+        <Modal.Body>
+          <h6>Are you sure you want to logout ?</h6>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button color="red" onClick={submitLogout}>
+            Yes
+          </Button>
+          <Button appearance="subtle" onClick={() => setModal(false)}>
+            No
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

@@ -75,10 +75,15 @@ $grey: #9ba3ad;
           text-align: center;
           border-radius: 15px;
           transition: 0.4s;
+          font-size: 16px;
+          font-weight: bold;
           &:focus {
             border: 1px solid $red;
             box-shadow: 0px 0px 6px -1px $red;
           }
+        }
+        .pincode-input-text {
+          font-size: 22px;
         }
         .resend {
           display: flex;
