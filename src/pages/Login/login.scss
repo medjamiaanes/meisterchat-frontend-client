@@ -2,7 +2,6 @@ $background: #f4f6f9;
 $dark: #2b2d3a;
 $red: #ea4b4b;
 $grey: #9ba3ad;
-$brown: #b18d65;
 
 .login_page {
   width: 100%;
@@ -10,11 +9,21 @@ $brown: #b18d65;
   display: flex;
   .left_box {
     flex: 1;
-    background-color: red;
+    background-color: $red;
+    position: relative;
     .people_chat_img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    .overlay {
+      position: absolute;
+      background-color: $dark;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.25;
     }
   }
   .right_box {
@@ -36,21 +45,32 @@ $brown: #b18d65;
       display: flex;
       flex-direction: column;
       align-items: center;
-      .form_title {
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        font-size: 0.95rem;
-        font-weight: bold;
+      .message {
+        margin-top: 10px;
       }
       .login_form {
-        margin-top: 12px;
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
-        .phone_input {
+        align-items: center;
+
+        .phone_input_button {
+          background-color: #fff;
+          border-top-left-radius: 15px;
+          border-bottom-left-radius: 15px;
+          border: 1px solid $grey;
+          padding: 5px;
+          &:hover {
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+          }
+        }
+        .form_input,
+        .pincode-input-text {
           outline-width: 0;
           border: 1px solid $grey;
           height: 50px;
-          width: 280px;
+          width: 300px;
           padding: 5px 10px;
           text-align: center;
           border-radius: 15px;
@@ -60,8 +80,38 @@ $brown: #b18d65;
             box-shadow: 0px 0px 6px -1px $red;
           }
         }
+        .resend {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 15px;
+          .resend_loader {
+            margin-right: 5px;
+            color: $red;
+          }
+          .resend_pin_button {
+            background-color: transparent;
+            color: $red;
+            outline: none;
+            border: none;
+            margin-right: 5px;
+            &:hover {
+              text-decoration: underline;
+            }
+            &:active,
+            &:focus {
+              background-color: transparent;
+            }
+            &:disabled {
+              color: $grey;
+              &:hover {
+                text-decoration: unset;
+              }
+            }
+          }
+        }
         .submit_button {
-          width: 280px;
+          width: 300px;
           background-color: $red;
           color: #fff;
           outline: none;
@@ -69,15 +119,23 @@ $brown: #b18d65;
           height: 50px;
           border-radius: 15px;
           margin-top: 15px;
-          font-size: 1.1rem;
+          font-size: 0.9rem;
           font-weight: bold;
           text-transform: uppercase;
           letter-spacing: 1px;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           opacity: 0.9;
           transition: 0.4s;
           &:hover {
             opacity: 1;
+          }
+          .button_icon {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
           }
         }
       }
@@ -89,6 +147,9 @@ $brown: #b18d65;
       .footer-title {
         color: $grey;
         text-transform: uppercase;
+        margin: 0;
+        font-weight: bold;
+        font-size: 1rem;
       }
     }
   }
