@@ -1,5 +1,5 @@
 {
-  "name": "meisterchat-frontend",
+  "name": "meisterchat-frontend-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
