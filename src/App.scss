@@ -18,3 +18,11 @@ body {
   width: 100%;
   height: 100vh;
 }
+
+.modal_header {
+  display: flex;
+  align-items: center;
+  .modal_icon {
+    margin-right: 5px;
+  }
+}
