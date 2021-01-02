@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom'
 
 import Chat from './views/Chat'
+import ComingSoon from './views/ComingSoon'
 const Main = () => {
   return (
     <div className="main_page">
@@ -16,7 +17,10 @@ const Main = () => {
         <Sidebar />
         <Switch>
           <Route path="/chat" component={Chat} />
-          <Redirect to="/chat" />
+          <Route path="/calls" component={ComingSoon} />
+          <Route path="/profile" component={ComingSoon} />
+          <Route path="/notifications" component={ComingSoon} />
+          <Redirect from="/" to="/chat" />
         </Switch>
       </Router>
     </div>
