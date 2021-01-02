@@ -9,6 +9,7 @@ import './login.scss'
 import { useDispatch } from 'react-redux'
 import { login } from '../../features/userSlice'
 import * as Storage from '../../helpers/Storage'
+import { setAuthorization } from '../../helpers/Api'
 const Login = () => {
   const dispatch = useDispatch()
   const [form, setForm] = React.useState('phone_form')
@@ -16,6 +17,7 @@ const Login = () => {
 
   const submitLogin = (auth) => {
     Storage.setObject('meisterchat_auth', auth)
+    setAuthorization(auth.accessToken)
     dispatch(login(auth))
   }
   const renderForm = () => {
