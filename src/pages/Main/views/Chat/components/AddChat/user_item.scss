@@ -1,0 +1,44 @@
+$background: #ebf2f8;
+$background_darker: #c8d8e7;
+$dark: #2b2d3a;
+$green: #44cb71;
+$red: #ea4b4b;
+$orange: #ffbf43;
+.user_item {
+  height: 70px;
+  border: 1px solid $background_darker;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin: 5px 0px;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    opacity: 0.8;
+  }
+  .user_infos {
+    display: flex;
+    align-items: center;
+    .avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 2px solid $red;
+      margin-right: 10px;
+    }
+  }
+  .add_button {
+    &:hover {
+      background: transparent;
+    }
+    &:disabled {
+      .icon {
+        color: #ccc;
+      }
+    }
+    .icon {
+      color: $red;
+    }
+  }
+}
