@@ -1,0 +1,13 @@
+.start_chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 10px;
+  .cover_img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
