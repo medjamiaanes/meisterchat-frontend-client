@@ -12,9 +12,8 @@ const Chat = () => {
   const dispatch = useDispatch()
   const fetchChats = async () => {
     try {
-      const { data } = await axios.get('/backend/api/inbox/fetch')
-      console.log(data)
-      dispatch(setChatList(data.chats))
+      const { data: chats } = await axios.get('/backend/api/inbox/fetch')
+      dispatch(setChatList(chats))
     } catch (error) {
       Alert.error('500 Error code')
     }
