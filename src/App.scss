@@ -18,11 +18,27 @@ body {
   width: 100%;
   height: 100vh;
 }
+button,
+input {
+  outline: none;
+  border: none;
+}
 
 .modal_header {
   display: flex;
   align-items: center;
   .modal_icon {
     margin-right: 5px;
+  }
+}
+.btn {
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+.red_button {
+  background-color: $red;
+  color: #fff;
+  &:hover {
+    opacity: 0.8;
   }
 }
