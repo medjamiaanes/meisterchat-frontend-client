@@ -4,6 +4,7 @@ $dark: #2b2d3a;
 $green: #44cb71;
 $red: #ea4b4b;
 $orange: #ffbf43;
+$grey: #828b95;
 
 .chat_item {
   height: 115px;
@@ -38,7 +39,7 @@ $orange: #ffbf43;
       position: absolute;
       bottom: 5%;
       right: 8%;
-      &.online {
+      &.active {
         background-color: $green;
       }
       &.busy {
@@ -48,7 +49,7 @@ $orange: #ffbf43;
         background-color: $orange;
       }
       &.offline {
-        display: none;
+        background-color: $grey;
       }
     }
   }
