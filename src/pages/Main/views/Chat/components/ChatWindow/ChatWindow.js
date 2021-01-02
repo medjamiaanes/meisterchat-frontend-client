@@ -7,18 +7,29 @@ import {
   InsertEmoticon,
   AttachFile,
   Send,
+  Settings,
 } from '@material-ui/icons'
 import { IconButton } from '@material-ui/core'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setChat } from '../../../../../../features/chatSlice'
+import { Dropdown, Icon } from 'rsuite'
 const ChatWindow = () => {
+  const dispatch = useDispatch()
+  const chat = useSelector((state) => state.chat.currentChat)
   return (
     <div className="chat_window">
       <div className="header">
         <div className="infos">
-          <h4 className="username">Monica Geller</h4>
+          <h4 className="username">{chat.user.username}</h4>
           <div className="status">
-            <Dot className="status_icon" />
-            <p className="status_label">Active now</p>
+            <Dot
+              className={`status_icon ${
+                chat.user.isOnline ? chat.user.status : 'offline'
+              }`}
+            />
+            <p className="status_label">
+              {chat.user.isOnline ? chat.user.status : 'offline'}
+            </p>
           </div>
         </div>
         <div className="controls">
@@ -28,17 +39,33 @@ const ChatWindow = () => {
           <IconButton className="control_button">
             <Phone className="control_icon" />
           </IconButton>
+          <Dropdown
+            renderTitle={() => (
+              <IconButton className="control_button">
+                <Settings className="control_icon" />
+              </IconButton>
+            )}
+            placement="leftStart"
+          >
+            <Dropdown.Item>
+              <Icon icon="trash" /> Delete conversation
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setChat(undefined))}>
+              <Icon icon="close" /> Close disscusion
+            </Dropdown.Item>
+          </Dropdown>
         </div>
       </div>
       <div className="body">
-        <div className="user-message sent">Hi there</div>
-        <div className="user-message recieved">Hey Whats up !</div>
-        <div className="user-message sent">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam,
-          vel illo ratione eum reprehenderit, delectus doloremque unde
-          repudiandae eaque quod pariatur. Dolorem atque voluptatem magni
-          consequuntur tempora, architecto est minus.
-        </div>
+        {chat.messages.map((message) => {
+          if (message.isSender)
+            return (
+              <div className="user-message sent">{message.textMessage}</div>
+            )
+          return (
+            <div className="user-message recieved">{message.textMessage}</div>
+          )
+        })}
       </div>
       <div className="footer">
         <div className="emoticons">

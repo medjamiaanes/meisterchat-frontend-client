@@ -4,7 +4,7 @@ $dark: #2b2d3a;
 $green: #44cb71;
 $red: #ea4b4b;
 $orange: #ffbf43;
-$grey: #9ba3ad;
+$grey: #828b95;
 
 .chat_window {
   flex: 1;
@@ -29,12 +29,24 @@ $grey: #9ba3ad;
         margin-top: 10px;
         .status_icon {
           margin-right: 5px;
-          color: $green;
           font-size: 0.8rem;
+          &.active {
+            color: $green;
+          }
+          &.busy {
+            color: $red;
+          }
+          &.away {
+            color: $orange;
+          }
+          &.offline {
+            color: $grey;
+          }
         }
         .status_label {
           color: $grey;
           font-size: 0.9rem;
+          text-transform: capitalize;
         }
       }
     }
