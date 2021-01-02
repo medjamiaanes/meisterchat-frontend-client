@@ -1,0 +1,19 @@
+$background_darker: #c8d8e7;
+.no_items {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .icon,
+  .description {
+    color: $background_darker;
+  }
+  .icon {
+    font-size: 50px;
+  }
+  .description {
+    font-size: 1.1rem;
+  }
+}
