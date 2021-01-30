@@ -24,7 +24,7 @@ const ChatList = () => {
     return list.length ? (
       list.map((c, index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             <ChatItem
               status={c.user.isOnline ? c.user.status : 'offline'}
               avatar={c.user.avatar}
@@ -33,11 +33,10 @@ const ChatList = () => {
                 c.messages.length ? c.messages[0].textMessage : 'New disscusion'
               }
               active={chat && c.user._id === chat.user._id}
-              key={index}
               onClick={() => dispatch(setChat(c))}
             />
             <div className="divider"></div>
-          </>
+          </React.Fragment>
         )
       })
     ) : (
@@ -48,7 +47,7 @@ const ChatList = () => {
     return chatList.length ? (
       chatList.map((c, index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             <ChatItem
               status={c.user.isOnline ? c.user.status : 'offline'}
               avatar={c.user.avatar}
@@ -58,12 +57,14 @@ const ChatList = () => {
                   ? c.messages[0].textMessage
                   : 'Click to start disscustion'
               }
+              timestamp={
+                c.messages.length ? c.messages[0].timestamp : undefined
+              }
               active={chat && c.user._id === chat.user._id}
-              key={index}
               onClick={() => dispatch(setChat(c))}
             />
             <div className="divider"></div>
-          </>
+          </React.Fragment>
         )
       })
     ) : (

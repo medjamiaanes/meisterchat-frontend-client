@@ -6,8 +6,10 @@ import NoItems from '../NoItems'
 import UserItem from './UserItem'
 import SearchLoader from '../SearchLoader'
 import axios from '../../../../../../helpers/Api'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setChatList } from '../../../../../../features/chatSlice'
 const AddChat = () => {
+  const dispatch = useDispatch()
   const [modal, setModal] = React.useState(false)
   const [usersList, setUsersList] = React.useState([])
   const chatList = useSelector((state) => state.chat.chatList)
@@ -23,7 +25,7 @@ const AddChat = () => {
         username={username}
         phone={phone}
         key={index}
-        disabled={chatList.find((chat) => chat.user._id === _id)}
+        disabled={chatList.find((chat) => chat.user._id === _id) ? true : false}
         onClick={() => addChat(_id)}
       />
     ))
@@ -33,6 +35,7 @@ const AddChat = () => {
       const { data } = await axios.post('/backend/api/inbox/add/chat', {
         userId,
       })
+      dispatch(setChatList(data))
     } catch (error) {
       if (error.response && error.response.status === 500)
         return Alert(error.response.data)
@@ -62,6 +65,7 @@ const AddChat = () => {
         keyboard={false}
         backdrop="static"
         onHide={() => setModal(false)}
+        onExit={() => setUsersList([])}
         show={modal}
         className="add_chat_modal"
       >

@@ -11,11 +11,27 @@ import {
 } from '@material-ui/icons'
 import { IconButton } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { setChat } from '../../../../../../features/chatSlice'
-import { Dropdown, Icon } from 'rsuite'
+import { setChat, setChatList } from '../../../../../../features/chatSlice'
+import { Dropdown, Icon, Loader, Alert } from 'rsuite'
+import axios from '../../../../../../helpers/Api'
 const ChatWindow = () => {
   const dispatch = useDispatch()
   const chat = useSelector((state) => state.chat.currentChat)
+  const [loading, setLoading] = React.useState(false)
+
+  const removeChat = async () => {
+    try {
+      setLoading(true)
+      const { data } = await axios.delete('/backend/api/inbox/remove/chat', {
+        params: { userId: chat.user._id },
+      })
+      dispatch(setChatList(data))
+      setLoading(false)
+      dispatch(setChat(undefined))
+    } catch (error) {
+      Alert.error('500 code error')
+    }
+  }
   return (
     <div className="chat_window">
       <div className="header">
@@ -41,13 +57,13 @@ const ChatWindow = () => {
           </IconButton>
           <Dropdown
             renderTitle={() => (
-              <IconButton className="control_button">
-                <Settings className="control_icon" />
+              <IconButton className="control_button" disabled={loading}>
+                {loading ? <Loader /> : <Settings className="control_icon" />}
               </IconButton>
             )}
             placement="leftStart"
           >
-            <Dropdown.Item>
+            <Dropdown.Item onClick={removeChat}>
               <Icon icon="trash" /> Delete conversation
             </Dropdown.Item>
             <Dropdown.Item onClick={() => dispatch(setChat(undefined))}>
